@@ -20,7 +20,11 @@ export const getRandomPetProfile = async (filters: { type?: string, location?: s
     return match;
   });
 
-  const pool = filteredPets.length > 0 ? filteredPets : mockPets;
+  if (filteredPets.length === 0) {
+    throw new Error('No pets match the selected filters');
+  }
+
+  const pool = filteredPets;
   const basePet: Pet = pool[Math.floor(Math.random() * pool.length)];
 
   let imageUrl: string = FALLBACK_IMAGE;

@@ -8,10 +8,13 @@ export function usePetStack(filters: { type?: string, location?: string } = {}) 
   async function fillStack() {
     const promises = [];
     while (stack.length + promises.length < 3) {
-      promises.push(getRandomPetProfile(filters));
+      promises.push(getRandomPetProfile(filters).catch(() => null));
     }
-    const newPets = await Promise.all(promises);
-    stack.push(...newPets);
+    const newPets = (await Promise.all(promises)).filter(p => p !== null);
+    
+    if (newPets.length > 0) {
+      stack.push(...(newPets as PetProfile[]));
+    }
     loading = false;
   }
 

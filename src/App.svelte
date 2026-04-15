@@ -42,7 +42,15 @@
     matchedPet = null;
     currentScreen = "browse";
   }
+
+  function handleKeydown(event: KeyboardEvent) {
+    if (currentScreen !== "browse" || petStack.loading || !petStack.current) return;
+    if (event.key === "ArrowRight") handleLike();
+    if (event.key === "ArrowLeft") handlePass();
+  }
 </script>
+
+<svelte:window onkeydown={handleKeydown} />
 
 <!-- The main wrapper employs a mobile-first native feel with fixed screen height and gradient bg -->
 <main class="w-full max-w-lg mx-auto h-[100dvh] bg-warm-100 overflow-hidden relative flex flex-col items-center justify-center shadow-2xl xl:rounded-3xl xl:h-[90dvh]">
@@ -71,11 +79,22 @@
     </div>
   {/if}
 
-  {#if petStack.loading || !petStack.current}
+  {#if petStack.loading}
     <!-- Loading State -->
     <div class="flex flex-col items-center gap-4 text-warm-500 font-bold text-xl animate-pulse z-10">
       <div class="w-16 h-16 rounded-full border-4 border-t-primary-500 border-warm-200 animate-spin"></div>
       <p>Buscando hocicos...</p>
+    </div>
+  {:else if !petStack.current && currentScreen === "browse"}
+    <!-- Empty State -->
+    <div class="flex flex-col items-center gap-4 text-warm-500 text-center font-medium z-10 p-8 bg-white/80 rounded-xl">
+      <p class="text-2xl">😢</p>
+      <p>No se encontraron mascotas con esos filtros.</p>
+      <button onclick={() => {
+        selectedType = ""; selectedLocation = ""; applyFilters();
+      }} class="mt-4 px-4 py-2 bg-primary-500 text-white rounded-lg font-bold shadow hover:bg-primary-600 transition">
+        Ver Todas
+      </button>
     </div>
   {:else if currentScreen === "browse"}
     <!-- Swipe Interface -->
