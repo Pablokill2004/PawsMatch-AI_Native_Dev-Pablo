@@ -1,40 +1,55 @@
 ﻿import { getRandomPetProfile } from '../services/petProvider';
 import type { PetProfile } from '../types/pet';
 
-export function usePetStack(filters: { type?: string, location?: string } = {}) {
+export function usePetStack(initialFilters: { type?: string; location?: string } = {}) {
   let stack = $state<PetProfile[]>([]);
   let loading = $state(true);
 
-  async function fillStack() {
-    const promises = [];
-    while (stack.length + promises.length < 3) {
-      promises.push(getRandomPetProfile(filters).catch(() => null));
-    }
-    const newPets = (await Promise.all(promises)).filter(p => p !== null);
-    
-    if (newPets.length > 0) {
-      stack.push(...(newPets as PetProfile[]));
-    }
-    loading = false;
+  let filters = { ...initialFilters };
+  let generation = 0;
+  let fillInFlight: Promise<void> | null = null;
+
+  function fillStack() {
+    if (fillInFlight) return fillInFlight;
+
+    const gen = generation;
+    const promise = (async () => {
+      while (generation === gen && stack.length < 3) {
+        const pet = await getRandomPetProfile(filters).catch(() => null);
+        if (generation !== gen) return;
+        if (!pet) return;
+        stack.push(pet);
+      }
+    })();
+
+    fillInFlight = promise;
+
+    promise.finally(() => {
+      if (fillInFlight === promise) fillInFlight = null;
+      if (generation === gen) loading = false;
+    });
+
+    return promise;
   }
 
   function init() {
+    generation += 1;
     stack = [];
     loading = true;
-    fillStack();
+    fillInFlight = null;
+    void fillStack();
   }
 
   function next() {
     if (stack.length > 0) {
       stack.shift();
-      fillStack();
+      void fillStack();
     }
   }
 
-  function updateFilters(newFilters: { type?: string, location?: string }) {
-    filters.type = newFilters.type;
-    filters.location = newFilters.location;
-    init(); // reload with new filters
+  function updateFilters(newFilters: { type?: string; location?: string }) {
+    filters = { ...newFilters };
+    init();
   }
 
   return {

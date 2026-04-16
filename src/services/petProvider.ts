@@ -3,13 +3,13 @@ import type { PetProfile, Pet } from '../types/pet';
 
 const FALLBACK_IMAGE = 'https://images.dog.ceo/breeds/retriever-golden/n02099601_3004.jpg';
 
-const types = ['Dog', 'Cat', 'Rabbit'];
-const locations = ['New York', 'Los Angeles', 'Chicago'];
+const types = ['Dog', 'Cat', 'Rabbit', 'Bird'];
+const locations = ['New York', 'Los Angeles', 'Chicago', 'Houston', 'Phoenix'];
 
-// Seed mock data with random types and locations if empty
-mockPets.forEach(pet => {
-  if (!pet.type) pet.type = types[Math.floor(Math.random() * types.length)];
-  if (!pet.location) pet.location = locations[Math.floor(Math.random() * locations.length)];
+// Seed mock data with deterministic types and locations if empty
+mockPets.forEach((pet) => {
+  if (!pet.type) pet.type = types[(pet.id - 1) % types.length];
+  if (!pet.location) pet.location = locations[(pet.id - 1) % locations.length];
 });
 
 export const getRandomPetProfile = async (filters: { type?: string, location?: string } = {}): Promise<PetProfile> => {
@@ -36,8 +36,8 @@ export const getRandomPetProfile = async (filters: { type?: string, location?: s
         imageUrl = json.message;
       }
     }
-  } catch (error) {
-    console.error('Error fetching image from Dog API:', error);
+  } catch {
+    // Fallback image is used when the network request fails.
   }
 
   return {

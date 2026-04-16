@@ -29,9 +29,9 @@
   function handleLike() {
     matchedPet = petStack.current;
     currentScreen = "adoption";
-    
-    // Asynchronously advance the stack. When the user returns to browse, a new pet is waiting.
-    setTimeout(() => petStack.next(), 300);
+
+    // Advance the stack immediately so a new pet is ready when the user returns.
+    petStack.next(
   }
 
   function handlePass() {

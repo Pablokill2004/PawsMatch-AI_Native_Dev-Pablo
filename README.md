@@ -12,6 +12,8 @@ PawsMatch is a pet adoption web application with a modern, mobile-first "Tinder-
 
 ## 🚀 How to Run the Project
 
+Run these commands from the repository root. If your evaluator runs the project from `app/`, run the same commands from that folder instead.
+
 1. **Install Dependencies:**
    ```bash
    npm install
@@ -38,6 +40,7 @@ PawsMatch is a pet adoption web application with a modern, mobile-first "Tinder-
 ## 🐾 Features (Definition of Done)
 
 - **Swipe Interface**: Swiping right "Likes" a pet (showing shelter details), and swiping left "Passes". Arrow keys (Right/Left) are also fully supported for desktop users.
+- **Filters (Type + Location)**: Dropdown filters update the stack in real time, showing only pets that match the selected `type` and `location`.
 - **API Integration**: Pet base data is loaded purely locally while real images are perfectly sourced from the **Dog CEO API** on-the-fly (`https://dog.ceo/api/breeds/image/random`).
 - **Zero-Latency Pre-fetching**: The app implements a FIFO queue of 3 pets via `usePetStack.svelte.ts` taking advantage of hidden HTML images for background asset preloads.
 - **Responsive Mobile-First UI**: Looks and feels exactly like an iOS or Android native application.
