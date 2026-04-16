@@ -70,7 +70,7 @@
   </div>
 </div>
 
-<script lang="ts" context="module">
+<script lang="ts" module>
   // Context module lets us import Heart cleanly despite not needing it exported in template initially 
   import { Heart } from 'lucide-svelte';
 </script>

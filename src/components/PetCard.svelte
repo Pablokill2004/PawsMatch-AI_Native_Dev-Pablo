@@ -22,7 +22,7 @@
     isDragging = true;
     startX = e.clientX - $x;
     startY = e.clientY - $y;
-    e.target?.setPointerCapture(e.pointerId);
+    (e.target as Element)?.setPointerCapture(e.pointerId);
   }
 
   function handlePointerMove(e: PointerEvent) {
@@ -36,7 +36,7 @@
 
   function handlePointerUp(e: PointerEvent) {
     isDragging = false;
-    e.target?.releasePointerCapture(e.pointerId);
+    (e.target as Element)?.releasePointerCapture(e.pointerId);
     
     // Swipe threshold
     if ($x > 100) {
@@ -61,6 +61,7 @@
 </script>
 
 <div 
+  role="presentation"
   class="relative w-full max-w-sm h-[70vh] max-h-[600px] select-none touch-none will-change-transform mt-8"
   style="transform: translate({$x}px, {$y}px) rotate({$rotation}deg);"
   onpointerdown={handlePointerDown}
