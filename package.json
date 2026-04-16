@@ -11,21 +11,21 @@
   },
   "devDependencies": {
     "@sveltejs/vite-plugin-svelte": "^7.0.0",
+    "@testing-library/jest-dom": "^6.9.1",
+    "@testing-library/react": "^16.3.2",
     "@tsconfig/svelte": "^5.0.8",
     "@types/node": "^24.12.2",
+    "jsdom": "^29.0.2",
     "svelte": "^5.55.1",
     "svelte-check": "^4.4.6",
     "typescript": "~6.0.2",
     "vite": "^8.0.4",
-    "@testing-library/jest-dom": "^6.9.1",
-    "@testing-library/react": "^16.3.2",
-    "jsdom": "^29.0.2",
     "vitest": "^4.1.4"
   },
   "dependencies": {
+    "@google/genai": "^1.50.1",
     "@tailwindcss/vite": "^4.2.2",
     "lucide-svelte": "^1.0.1",
-    "tailwindcss": "^4.2.2",
-    "@google/genai": "^1.50.1"
+    "tailwindcss": "^4.2.2"
   }
 }
