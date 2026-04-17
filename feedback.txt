@@ -30,7 +30,4 @@ This is an excellent implementation of a Tinder-style pet adoption interface usi
 
 *Note: This is a top-tier submission. The minor points above are suggestions for professional-grade hardening rather than fundamental flaws.*
 
-Dependencias requeridas para el calificador
-Tu proyecto debe incluir las siguientes devDependencies para que los tests automáticos funcionen:
-
-npm install -D vitest @testing-library/react @testing-library/jest-dom jsdom
+Si tu proyecto no sigue ninguna de estas convenciones, el primer test fallará con el detalle de las rutas que intentó importar.
