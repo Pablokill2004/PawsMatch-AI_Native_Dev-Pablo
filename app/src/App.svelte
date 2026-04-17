@@ -79,7 +79,15 @@
     </div>
   {/if}
 
-  {#if petStack.loading}
+  {#if petStack.error}
+    <div class="flex flex-col items-center gap-4 text-warm-500 text-center font-medium z-10 p-8 bg-white/80 rounded-xl">
+      <p class="text-2xl">😕</p>
+      <p>{petStack.error}</p>
+      <button onclick={petStack.init} class="mt-4 px-4 py-2 bg-primary-500 text-white rounded-lg font-bold shadow hover:bg-primary-600 transition">
+        Reintentar
+      </button>
+    </div>
+  {:else if petStack.loading}
     <!-- Loading State -->
     <div class="flex flex-col items-center gap-4 text-warm-500 font-bold text-xl animate-pulse z-10">
       <div class="w-16 h-16 rounded-full border-4 border-t-primary-500 border-warm-200 animate-spin"></div>
