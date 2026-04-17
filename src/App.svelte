@@ -31,7 +31,7 @@
     currentScreen = "adoption";
 
     // Advance the stack immediately so a new pet is ready when the user returns.
-    petStack.next(
+    petStack.next();
   }
 
   function handlePass() {

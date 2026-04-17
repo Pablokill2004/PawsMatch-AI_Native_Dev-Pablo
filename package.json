@@ -28,6 +28,8 @@
     "@google/genai": "^1.50.1",
     "@tailwindcss/vite": "^4.2.2",
     "lucide-svelte": "^1.0.1",
+    "react": "^19.1.0",
+    "react-dom": "^19.1.0",
     "tailwindcss": "^4.2.2"
   }
 }
