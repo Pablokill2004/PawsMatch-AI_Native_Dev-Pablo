@@ -54,6 +54,7 @@
 
 <!-- The main wrapper employs a mobile-first native feel with fixed screen height and gradient bg -->
 <main class="w-full max-w-lg mx-auto h-[100dvh] bg-warm-100 overflow-hidden relative flex flex-col items-center justify-center shadow-2xl xl:rounded-3xl xl:h-[90dvh]">
+  <h1 class="sr-only">PawsMatch</h1>
   
   <!-- Fancy Background ambient lights -->
   <div class="absolute top-[-10%] left-[-10%] w-[50vw] h-[50vw] bg-primary-200/40 rounded-full blur-3xl mix-blend-multiply pointer-events-none"></div>
@@ -61,14 +62,16 @@
 
   {#if currentScreen === "browse"}
     <div class="absolute top-4 z-20 flex gap-2 w-full px-4 justify-center bg-white/50 backdrop-blur-sm p-3 rounded-b-xl shadow-sm">
-      <select bind:value={selectedType} onchange={applyFilters} class="p-2 rounded-lg border border-warm-300 text-sm font-medium bg-white">
+      <label for="pawsmatch-filter-type" class="sr-only">Tipo (Type)</label>
+      <select id="pawsmatch-filter-type" name="type" aria-label="Tipo (Type)" bind:value={selectedType} onchange={applyFilters} class="p-2 rounded-lg border border-warm-300 text-sm font-medium bg-white">
         <option value="">Todos los Tipos</option>
         <option value="Dog">Perro (Dog)</option>
         <option value="Cat">Gato (Cat)</option>
         <option value="Rabbit">Conejo (Rabbit)</option>
         <option value="Bird">Ave (Bird)</option>
       </select>
-      <select bind:value={selectedLocation} onchange={applyFilters} class="p-2 rounded-lg border border-warm-300 text-sm font-medium bg-white">
+      <label for="pawsmatch-filter-location" class="sr-only">Ubicación (Location)</label>
+      <select id="pawsmatch-filter-location" name="location" aria-label="Ubicación (Location)" bind:value={selectedLocation} onchange={applyFilters} class="p-2 rounded-lg border border-warm-300 text-sm font-medium bg-white">
         <option value="">Cualquier Lugar</option>
         <option value="New York">New York</option>
         <option value="Los Angeles">Los Angeles</option>

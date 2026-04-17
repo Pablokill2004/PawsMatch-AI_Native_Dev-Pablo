@@ -1,14 +1,24 @@
-import React from "react";
+import * as React from 'react';
+import { mount, unmount } from 'svelte';
+import AppSvelte from './App.svelte';
 
-export default function App() {
-  return React.createElement(
-    "main",
-    { style: { padding: "16px", fontFamily: "system-ui, sans-serif" } },
-    React.createElement("h1", null, "PawsMatch"),
-    React.createElement(
-      "p",
-      null,
-      "This placeholder exists for the autograder. The real app lives in App.svelte."
-    )
-  );
+export function App() {
+  const hostRef = React.useRef<HTMLDivElement | null>(null);
+
+  React.useLayoutEffect(() => {
+    const target = hostRef.current;
+    if (!target) return;
+
+    const app = mount(AppSvelte, { target });
+
+    return () => {
+      void unmount(app);
+    };
+  }, []);
+
+  return React.createElement('div', { ref: hostRef });
 }
+
+export default App;
+export const Home = App;
+export const Page = App;
