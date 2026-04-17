@@ -8,7 +8,10 @@
   }>();
 
   function handleSchedule() {
-    alert(`Redirigiendo a reserva de cita para conocer a ${profile.name}...`);
+    try {
+      alert(`Redirigiendo a reserva de cita para conocer a ${profile.name}...`);
+    } catch {
+    }
   }
 </script>
 

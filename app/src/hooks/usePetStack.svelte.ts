@@ -19,8 +19,13 @@ export function usePetStack(initialFilters: { type?: string; location?: string }
         let pet: PetProfile | null = null;
         try {
           pet = await getRandomPetProfile(filters);
-        } catch {
+        } catch (err) {
           if (generation !== gen) return;
+
+          if (err instanceof Error && err.message === 'No pets match the selected filters') {
+            return;
+          }
+
           error = 'No se pudieron cargar mascotas. Intenta de nuevo.';
           return;
         }
